@@ -75,7 +75,7 @@ export interface GetPokemons_pokemons_attacks {
   special: (GetPokemons_pokemons_attacks_special | null)[] | null;
 }
 
-export interface GetPokemons_pokemons_evolutions_evolutions_weight {
+export interface GetPokemons_pokemons_evolutions_weight {
   __typename: "PokemonDimension";
   /**
    * The minimum value of this dimension
@@ -87,7 +87,7 @@ export interface GetPokemons_pokemons_evolutions_evolutions_weight {
   maximum: string | null;
 }
 
-export interface GetPokemons_pokemons_evolutions_evolutions_height {
+export interface GetPokemons_pokemons_evolutions_height {
   __typename: "PokemonDimension";
   /**
    * The minimum value of this dimension
@@ -99,7 +99,7 @@ export interface GetPokemons_pokemons_evolutions_evolutions_height {
   maximum: string | null;
 }
 
-export interface GetPokemons_pokemons_evolutions_evolutions_attacks_fast {
+export interface GetPokemons_pokemons_evolutions_attacks_fast {
   __typename: "Attack";
   /**
    * The name of this Pokémon attack
@@ -115,7 +115,7 @@ export interface GetPokemons_pokemons_evolutions_evolutions_attacks_fast {
   damage: number | null;
 }
 
-export interface GetPokemons_pokemons_evolutions_evolutions_attacks_special {
+export interface GetPokemons_pokemons_evolutions_attacks_special {
   __typename: "Attack";
   /**
    * The name of this Pokémon attack
@@ -131,19 +131,19 @@ export interface GetPokemons_pokemons_evolutions_evolutions_attacks_special {
   damage: number | null;
 }
 
-export interface GetPokemons_pokemons_evolutions_evolutions_attacks {
+export interface GetPokemons_pokemons_evolutions_attacks {
   __typename: "PokemonAttack";
   /**
    * The fast attacks of this Pokémon
    */
-  fast: (GetPokemons_pokemons_evolutions_evolutions_attacks_fast | null)[] | null;
+  fast: (GetPokemons_pokemons_evolutions_attacks_fast | null)[] | null;
   /**
    * The special attacks of this Pokémon
    */
-  special: (GetPokemons_pokemons_evolutions_evolutions_attacks_special | null)[] | null;
+  special: (GetPokemons_pokemons_evolutions_attacks_special | null)[] | null;
 }
 
-export interface GetPokemons_pokemons_evolutions_evolutions {
+export interface GetPokemons_pokemons_evolutions {
   __typename: "Pokemon";
   /**
    * The ID of an object
@@ -160,11 +160,11 @@ export interface GetPokemons_pokemons_evolutions_evolutions {
   /**
    * The minimum and maximum weight of this Pokémon
    */
-  weight: GetPokemons_pokemons_evolutions_evolutions_weight | null;
+  weight: GetPokemons_pokemons_evolutions_weight | null;
   /**
    * The minimum and maximum weight of this Pokémon
    */
-  height: GetPokemons_pokemons_evolutions_evolutions_height | null;
+  height: GetPokemons_pokemons_evolutions_height | null;
   /**
    * The classification of this Pokémon
    */
@@ -194,53 +194,7 @@ export interface GetPokemons_pokemons_evolutions_evolutions {
   /**
    * The attacks of this Pokémon
    */
-  attacks: GetPokemons_pokemons_evolutions_evolutions_attacks | null;
-}
-
-export interface GetPokemons_pokemons_evolutions {
-  __typename: "Pokemon";
-  /**
-   * The ID of an object
-   */
-  id: string;
-  /**
-   * The identifier of this Pokémon
-   */
-  number: string | null;
-  /**
-   * The name of this Pokémon
-   */
-  name: string | null;
-  /**
-   * The classification of this Pokémon
-   */
-  classification: string | null;
-  /**
-   * The type(s) of this Pokémon
-   */
-  types: (string | null)[] | null;
-  /**
-   * The type(s) of Pokémons that this Pokémon is resistant to
-   */
-  resistant: (string | null)[] | null;
-  /**
-   * The type(s) of Pokémons that this Pokémon weak to
-   */
-  weaknesses: (string | null)[] | null;
-  fleeRate: number | null;
-  /**
-   * The maximum CP of this Pokémon
-   */
-  maxCP: number | null;
-  /**
-   * The evolutions of this Pokémon
-   */
-  evolutions: (GetPokemons_pokemons_evolutions_evolutions | null)[] | null;
-  /**
-   * The maximum HP of this Pokémon
-   */
-  maxHP: number | null;
-  image: string | null;
+  attacks: GetPokemons_pokemons_evolutions_attacks | null;
 }
 
 export interface GetPokemons_pokemons {

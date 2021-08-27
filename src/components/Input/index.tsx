@@ -5,7 +5,7 @@ import { Input } from "antd";
 
 export const InputText = styled(Input)`
   && {
-    padding: 25px 10px;
+    padding: 16px 10px;
     font-size: 2rem;
     border-radius: 8px;
   }

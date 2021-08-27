@@ -6,29 +6,17 @@ import { InputText } from "components/Input";
 import {
   GetPokemons,
   GetPokemons_pokemons,
+  GetPokemons_pokemons_evolutions,
 } from "../../__generated__/GetPokemons";
 import styled from "styled-components";
 import Meta from "antd/lib/card/Meta";
 import { useDebounce } from "hooks/useDebounce";
 import Modal from "antd/lib/modal/Modal";
+import { PokemonDetail } from "containers/PokemonDetail";
+import { PokemonCard } from "containers/PokemonCard";
+import { EvolutionDetailModal } from "containers/EvolutionDetailModal";
 
 const { Title } = Typography;
-
-const StlyedWrapper = styled.div`
-  display: grid;
-  padding: 20px;
-`;
-
-const StyledCard = styled(Card)`
-  width: 400;
-  margin: 10;
-
-  & .ant-card-cover img {
-    width: auto;
-    height: 100px;
-    margin: 0 auto;
-  }
-`;
 
 export const HomePage = () => {
   const [pokemons, setPokemons] = useState<GetPokemons_pokemons[]>();
@@ -37,7 +25,7 @@ export const HomePage = () => {
   >([]);
   const [evolutions, setEvolutions] = useState([]);
 
-  const [searchText, setSearchText] = useState("C");
+  const [searchText, setSearchText] = useState("");
   const [visibleModal, setVisibleModal] = useState(false);
   const debounceSearchText = useDebounce(searchText, 200);
 
@@ -72,135 +60,40 @@ export const HomePage = () => {
     }
   }, [debounceSearchText, pokemons]);
 
-  const handleSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     setSearchText(e?.target?.value);
+
+  const handleOpenEvolutionsModal = (
+    evolutions: GetPokemons_pokemons_evolutions[]
+  ) => {
+    setVisibleModal(!visibleModal);
+    setEvolutions(evolutions);
   };
 
-  const handleModalClick = (name: string) => {
+  const handleCloseEvolutionsModal = () => {
+    setVisibleModal(!visibleModal);
+    setEvolutions([]);
+  };
+
+  const handleClickLinkEvolutionsModal = (name: string) => {
     setVisibleModal(!visibleModal);
     setSearchText(name);
   };
 
+  const handleClickLink = (name: string) => setSearchText(name);
+
   return (
-    <StlyedWrapper>
-      <Modal
-        title="Evolutions Detail"
-        width={860}
+    <div style={{ minHeight: "100vh" }}>
+      <EvolutionDetailModal
         visible={visibleModal}
-        onCancel={() => {
-          setVisibleModal(!visibleModal);
-          setEvolutions([]);
-        }}
-      >
-        <Row justify="center" align="middle">
-          {evolutions?.map((eachPokemon, index) => (
-            <React.Fragment key={eachPokemon?.id}>
-              <Col span={8}>
-                <StyledCard
-                  title={
-                    <a
-                      type="link"
-                      onClick={() => handleModalClick(eachPokemon?.name)}
-                    >
-                      {eachPokemon?.name}
-                    </a>
-                  }
-                  hoverable
-                  cover={<img alt="pokemon-image" src={eachPokemon?.image} />}
-                >
-                  <Meta
-                    description={
-                      <>
-                        <Row>
-                          <Col>Number: </Col>
-                          <Col>{eachPokemon?.number}</Col>
-                        </Row>
-                        <Row>
-                          <Col>Classification: </Col>
-                          <Col>{eachPokemon?.classification}</Col>
-                        </Row>
-                        <Row>
-                          <Col>Max HP: </Col>
-                          <Col>
-                            <Title level={5}>{eachPokemon?.maxHP}</Title>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>Max CP: </Col>
-                          <Col>
-                            <Title level={5}>{eachPokemon?.maxCP}</Title>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>Height (Min): </Col>
-                          <Col>
-                            <Title level={5}>
-                              {eachPokemon?.height?.minimum}
-                            </Title>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>Height (Max): </Col>
-                          <Col>
-                            <Title level={5}>
-                              {eachPokemon?.height?.maximum}
-                            </Title>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>Weight (Min): </Col>
-                          <Col>
-                            <Title level={5}>
-                              {eachPokemon?.weight?.minimum}
-                            </Title>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>Weight (Max): </Col>
-                          <Col>
-                            <Title level={5}>
-                              {eachPokemon?.weight?.maximum}
-                            </Title>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>Resistence: </Col>
-                          <Col>
-                            <Title level={5}>
-                              {eachPokemon?.resistant?.join(" , ")}
-                            </Title>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>Weaknesses: </Col>
-                          <Col>
-                            <Title level={5}>
-                              {eachPokemon?.weaknesses?.join(" , ")}
-                            </Title>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>Types: </Col>
-                          <Col>
-                            <Title level={5}>
-                              {eachPokemon?.types?.join(" , ")}
-                            </Title>
-                          </Col>
-                        </Row>
-                      </>
-                    }
-                  />
-                </StyledCard>
-              </Col>
-              {index !== evolutions?.length - 1 && <Col span={2}> {"=>"} </Col>}
-            </React.Fragment>
-          ))}
-        </Row>
-      </Modal>
-      <Row justify="center" align="middle" gutter={[16, 24]}>
+        evolutions={evolutions}
+        onCancel={handleCloseEvolutionsModal}
+        onClickLink={handleClickLinkEvolutionsModal}
+      />
+      <Row justify="center" align="middle" gutter={16}>
         <Col flex="auto">
           <InputText
-            onChange={handleSearchText}
+            onChange={handleChangeSearchInput}
             placeholder="Find your pokemon here..."
             value={searchText}
           />
@@ -211,128 +104,32 @@ export const HomePage = () => {
           </Button>
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <Title level={4}>Your keyword: {debounceSearchText || "-"}</Title>
-        </Col>
-      </Row>
-      <Row justify="center" gutter={[16, 16]}>
-        {pokemonFiltered?.length > 0 ? (
-          pokemonFiltered?.map((eachPokemon) => (
+      {debounceSearchText && (
+        <Row justify="center" style={{ marginTop: 24 }}>
+          <Col>
+            <Title level={3}>Your keyword: {debounceSearchText || "-"}</Title>
+          </Col>
+        </Row>
+      )}
+      {pokemonFiltered?.length === 0 ? (
+        <Row justify="center" align="middle" style={{ marginTop: 24 }}>
+          <Col>
+            <Title level={1}>Not found your pokemon.</Title>
+          </Col>
+        </Row>
+      ) : (
+        <Row justify="center" gutter={[16, 16]}>
+          {pokemonFiltered?.map((eachPokemon) => (
             <Col span={8} key={eachPokemon?.id}>
-              <StyledCard
-                title={
-                  <a
-                    type="link"
-                    onClick={() => setSearchText(eachPokemon?.name)}
-                  >
-                    {eachPokemon?.name}
-                  </a>
-                }
-                hoverable
-                cover={<img alt="pokemon-image" src={eachPokemon?.image} />}
-              >
-                <Meta
-                  description={
-                    <>
-                      <Row>
-                        <Col>Number: </Col>
-                        <Col>{eachPokemon?.number}</Col>
-                      </Row>
-                      <Row>
-                        <Col>Classification: </Col>
-                        <Col>{eachPokemon?.classification}</Col>
-                      </Row>
-                      <Row>
-                        <Col>Max HP: </Col>
-                        <Col>
-                          <Title level={5}>{eachPokemon?.maxHP}</Title>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col>Max CP: </Col>
-                        <Col>
-                          <Title level={5}>{eachPokemon?.maxCP}</Title>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col>Height (Min): </Col>
-                        <Col>
-                          <Title level={5}>
-                            {eachPokemon?.height?.minimum}
-                          </Title>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col>Height (Max): </Col>
-                        <Col>
-                          <Title level={5}>
-                            {eachPokemon?.height?.maximum}
-                          </Title>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col>Weight (Min): </Col>
-                        <Col>
-                          <Title level={5}>
-                            {eachPokemon?.weight?.minimum}
-                          </Title>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col>Weight (Max): </Col>
-                        <Col>
-                          <Title level={5}>
-                            {eachPokemon?.weight?.maximum}
-                          </Title>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col>Resistence: </Col>
-                        <Col>
-                          <Title level={5}>
-                            {eachPokemon?.resistant?.join(" , ")}
-                          </Title>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col>Weaknesses: </Col>
-                        <Col>
-                          <Title level={5}>
-                            {eachPokemon?.weaknesses?.join(" , ")}
-                          </Title>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col>Types: </Col>
-                        <Col>
-                          <Title level={5}>
-                            {eachPokemon?.types?.join(" , ")}
-                          </Title>
-                        </Col>
-                      </Row>
-                      {eachPokemon?.evolutions?.length > 0 && (
-                        <Row>
-                          <Button
-                            onClick={() => {
-                              setVisibleModal(!visibleModal);
-                              setEvolutions(eachPokemon?.evolutions);
-                            }}
-                          >
-                            Evalutions
-                          </Button>
-                        </Row>
-                      )}
-                    </>
-                  }
-                />
-              </StyledCard>
+              <PokemonCard
+                pokemon={eachPokemon}
+                onClickLink={handleClickLink}
+                onCLickEvolutionDetail={handleOpenEvolutionsModal}
+              />
             </Col>
-          ))
-        ) : (
-          <Title level={5}>Not found your pokemon.</Title>
-        )}
-      </Row>
-    </StlyedWrapper>
+          ))}
+        </Row>
+      )}
+    </div>
   );
 };

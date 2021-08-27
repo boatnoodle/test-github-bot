@@ -11,10 +11,14 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     line-height: 1.5;
     font-size: 1.4em;
+    background-image: url(https://img.pokemondb.net/artwork/pikachu.jpg);
+    background-repeat: no-repeat;
+    background-position-x: 10px;
   }
   body, h1, h2, h3, h4, h5, h6, h1.ant-typography, .ant-typography h1,  h2.ant-typography, .ant-typography h2,h3.ant-typography, .ant-typography h3,h4.ant-typography, .ant-typography h4,h5.ant-typography, .ant-typography h5,h6.ant-typography, .ant-typography h6{
     font-family: "Sarabun", sans-serif !important;
     color: #ff6700;
+
   }
 
   h1, h2, h3, h4, h5, h6{
