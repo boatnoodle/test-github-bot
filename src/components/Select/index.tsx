@@ -9,7 +9,6 @@ export const PrimarySelect = styled(Select)`
     height: 40px;
     font-size: 1rem;
     background: #ffffff;
-    /* border-color: #ff6700; */
     border-radius: 8px;
   }
 `;

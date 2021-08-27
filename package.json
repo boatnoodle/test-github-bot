@@ -3,10 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.3.21",
+    "@apollo/react-hooks": "^4.0.0",
     "antd": "^4.1.1",
+    "apollo": "^2.33.6",
+    "apollo-link-logger": "^2.0.0",
     "dayjs": "^1.10.5",
     "formik": "^2.1.4",
+    "graphql": "^15.5.1",
+    "graphql-anywhere": "^4.2.7",
+    "graphql-tag": "^2.12.5",
     "isomorphic-unfetch": "^3.0.0",
+    "lodash": "^4.17.21",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
@@ -29,7 +37,8 @@
     "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "gql-gen": "rm -rf ./__generated__ && apollo client:codegen --target=typescript  --outputFlat"
   },
   "eslintConfig": {
     "extends": "react-app"
