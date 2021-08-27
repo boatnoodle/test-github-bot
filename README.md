@@ -1,4 +1,4 @@
-## Exam todo app <br/>
+## Pokemon system <br/>
 
 #### How to review
 - `yarn install`
