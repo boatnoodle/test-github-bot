@@ -31,6 +31,50 @@ export interface GetPokemon_pokemon_height {
   maximum: string | null;
 }
 
+export interface GetPokemon_pokemon_attacks_fast {
+  __typename: "Attack";
+  /**
+   * The name of this Pokémon attack
+   */
+  name: string | null;
+  /**
+   * The type of this Pokémon attack
+   */
+  type: string | null;
+  /**
+   * The damage of this Pokémon attack
+   */
+  damage: number | null;
+}
+
+export interface GetPokemon_pokemon_attacks_special {
+  __typename: "Attack";
+  /**
+   * The name of this Pokémon attack
+   */
+  name: string | null;
+  /**
+   * The type of this Pokémon attack
+   */
+  type: string | null;
+  /**
+   * The damage of this Pokémon attack
+   */
+  damage: number | null;
+}
+
+export interface GetPokemon_pokemon_attacks {
+  __typename: "PokemonAttack";
+  /**
+   * The fast attacks of this Pokémon
+   */
+  fast: (GetPokemon_pokemon_attacks_fast | null)[] | null;
+  /**
+   * The special attacks of this Pokémon
+   */
+  special: (GetPokemon_pokemon_attacks_special | null)[] | null;
+}
+
 export interface GetPokemon_pokemon {
   __typename: "Pokemon";
   /**
@@ -79,6 +123,10 @@ export interface GetPokemon_pokemon {
    */
   maxHP: number | null;
   image: string | null;
+  /**
+   * The attacks of this Pokémon
+   */
+  attacks: GetPokemon_pokemon_attacks | null;
 }
 
 export interface GetPokemon {

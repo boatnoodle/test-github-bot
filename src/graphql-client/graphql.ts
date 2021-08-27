@@ -5,6 +5,22 @@ export const GET_POKEMONS = gql`
   query GetPokemons($first: Int!) {
     pokemons(first: $first) {
       ...pokemon
+      evolutions {
+        id
+        number
+        name
+        classification
+        types
+        resistant
+        weaknesses
+        fleeRate
+        maxCP
+        evolutions {
+          ...pokemon
+        }
+        maxHP
+        image
+      }
     }
   }
   ${POKEMON}

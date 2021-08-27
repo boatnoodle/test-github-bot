@@ -21,5 +21,17 @@ export const POKEMON = gql`
     maxCP
     maxHP
     image
+    attacks {
+      fast {
+        name
+        type
+        damage
+      }
+      special {
+        name
+        type
+        damage
+      }
+    }
   }
 `;
