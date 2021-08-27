@@ -6,7 +6,7 @@ interface Props {
   datas: GetPokemons_pokemons_attacks_fast[];
 }
 
-export const AttacTable: React.FC<Props> = ({ datas }) => {
+export const AttackTable: React.FC<Props> = ({ datas }) => {
   return (
     <Table
       dataSource={datas?.map((each, index) => ({ ...each, key: index }))}

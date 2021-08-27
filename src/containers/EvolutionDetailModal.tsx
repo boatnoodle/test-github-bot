@@ -6,6 +6,7 @@ import React from "react";
 import { GetPokemons_pokemons } from "../../__generated__/GetPokemons";
 import { PokemonDetail } from "./PokemonDetail";
 import { ArrowRightOutlined } from "@ant-design/icons";
+import { StyledLink } from "components/Link";
 
 interface Props {
   evolutions: GetPokemons_pokemons[];
@@ -34,12 +35,12 @@ export const EvolutionDetailModal: React.FC<Props> = ({
             <Col span={8}>
               <StyledCard
                 title={
-                  <a type="link" onClick={() => onClickLink(eachPokemon?.name)}>
+                  <StyledLink onClick={() => onClickLink(eachPokemon?.name)}>
                     {eachPokemon?.name}
-                  </a>
+                  </StyledLink>
                 }
                 hoverable
-                cover={<img alt="pokemon-image" src={eachPokemon?.image} />}
+                cover={<img alt="pokemon" src={eachPokemon?.image} />}
               >
                 <Meta description={<PokemonDetail pokemon={eachPokemon} />} />
               </StyledCard>

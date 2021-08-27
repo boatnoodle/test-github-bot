@@ -1,4 +1,4 @@
-import { Button, Card, Row } from "antd";
+import { Button, Row } from "antd";
 import Meta from "antd/lib/card/Meta";
 import { StyledCard } from "components/Card";
 import React from "react";
@@ -8,6 +8,7 @@ import {
   GetPokemons_pokemons_evolutions,
 } from "../../__generated__/GetPokemons";
 import { PokemonDetail } from "./PokemonDetail";
+import { StyledLink } from "components/Link";
 
 interface Props {
   pokemon: GetPokemons_pokemons;
@@ -25,12 +26,12 @@ export const PokemonCard: React.FC<Props> = ({
   return (
     <StyledCard
       title={
-        <a type="link" onClick={() => onClickLink(pokemon?.name)}>
+        <StyledLink onClick={() => onClickLink(pokemon?.name)}>
           {pokemon?.name}
-        </a>
+        </StyledLink>
       }
       hoverable
-      cover={<img alt="pokemon-image" src={pokemon?.image} />}
+      cover={<img alt="pokemon" src={pokemon?.image} />}
     >
       <Meta
         description={

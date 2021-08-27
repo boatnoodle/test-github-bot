@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_POKEMONS } from "graphql-client/graphql";
-import { Card, Col, Row, Typography, Button } from "antd";
+import { Col, Row, Typography, Button } from "antd";
 import { InputText } from "components/Input";
 import {
   GetPokemons,
   GetPokemons_pokemons,
   GetPokemons_pokemons_evolutions,
 } from "../../__generated__/GetPokemons";
-import styled from "styled-components";
-import Meta from "antd/lib/card/Meta";
 import { useDebounce } from "hooks/useDebounce";
-import Modal from "antd/lib/modal/Modal";
-import { PokemonDetail } from "containers/PokemonDetail";
 import { PokemonCard } from "containers/PokemonCard";
 import { EvolutionDetailModal } from "containers/EvolutionDetailModal";
 

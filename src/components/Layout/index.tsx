@@ -1,6 +1,4 @@
 import React from "react";
-import { Layout, Menu } from "antd";
-import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -13,16 +11,5 @@ const Container = styled.div`
 `;
 
 export const LayoutMain: React.FC<any> = ({ children }) => {
-  const history = useHistory();
-  const handleMenu = ({ key }) => {
-    switch (key) {
-      case "home":
-        history.push("/");
-        break;
-      default:
-        break;
-    }
-  };
-
   return <Container>{children}</Container>;
 };

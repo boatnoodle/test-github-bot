@@ -1,10 +1,9 @@
-import { Col, Collapse, Row, Typography } from "antd";
+import { Col, Row, Typography } from "antd";
 import React from "react";
 import { GetPokemons_pokemons } from "../../__generated__/GetPokemons";
-import { AttacTable } from "./AttacTable";
+import { AttackTable } from "./AttackTable";
 
 const { Title } = Typography;
-const { Panel } = Collapse;
 
 interface Props {
   pokemon: GetPokemons_pokemons;
@@ -28,13 +27,13 @@ export const PokemonDetail: React.FC<Props> = ({ pokemon }) => {
       <Row>
         <Col>Attack Fast</Col>
         <Col span={24}>
-          <AttacTable datas={pokemon?.attacks?.fast} />
+          <AttackTable datas={pokemon?.attacks?.fast} />
         </Col>
       </Row>
       <Row>
         <Col>Attack Special</Col>
         <Col span={24}>
-          <AttacTable datas={pokemon?.attacks?.special} />
+          <AttackTable datas={pokemon?.attacks?.special} />
         </Col>
       </Row>
       <Row>
