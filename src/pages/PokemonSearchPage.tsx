@@ -18,7 +18,7 @@ import { EvolutionDetailModal } from "containers/EvolutionDetailModal";
 
 const { Title } = Typography;
 
-export const HomePage = () => {
+export const PokemonSearchPage = () => {
   const [pokemons, setPokemons] = useState<GetPokemons_pokemons[]>();
   const [pokemonFiltered, setPokemonFiltered] = useState<
     GetPokemons_pokemons[]
@@ -93,6 +93,7 @@ export const HomePage = () => {
       <Row justify="center" align="middle" gutter={16}>
         <Col flex="auto">
           <InputText
+            data-testid="searchTextInput"
             onChange={handleChangeSearchInput}
             placeholder="Find your pokemon here..."
             value={searchText}

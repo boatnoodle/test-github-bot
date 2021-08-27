@@ -88,7 +88,9 @@ export const PokemonDetail: React.FC<Props> = ({ pokemon }) => {
       <Row>
         <Col>Types: </Col>
         <Col>
-          <Title level={5}>{pokemon?.types?.join(" , ")}</Title>
+          <Title data-testid="types" level={5}>
+            {pokemon?.types?.join(" , ")}
+          </Title>
         </Col>
       </Row>
     </div>
