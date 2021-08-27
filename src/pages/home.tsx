@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_POKEMONS } from "graphql-client/graphql";
-import { Card, Col, Row, Typography } from "antd";
+import { Card, Col, Row, Typography, Button } from "antd";
 import { InputText } from "components/Input";
 import {
   GetPokemons,
@@ -11,7 +11,6 @@ import styled from "styled-components";
 import Meta from "antd/lib/card/Meta";
 import { useDebounce } from "hooks/useDebounce";
 import Modal from "antd/lib/modal/Modal";
-import { Button } from "antd/lib/radio";
 
 const { Title } = Typography;
 
@@ -77,7 +76,10 @@ export const HomePage = () => {
     setSearchText(e?.target?.value);
   };
 
-  console.log(pokemonFiltered, "xxx");
+  const handleModalClick = (name: string) => {
+    setVisibleModal(!visibleModal);
+    setSearchText(name);
+  };
 
   return (
     <StlyedWrapper>
@@ -92,10 +94,17 @@ export const HomePage = () => {
       >
         <Row justify="center" align="middle">
           {evolutions?.map((eachPokemon, index) => (
-            <>
-              <Col span={8} key={eachPokemon?.id}>
+            <React.Fragment key={eachPokemon?.id}>
+              <Col span={8}>
                 <StyledCard
-                  title={eachPokemon?.name}
+                  title={
+                    <a
+                      type="link"
+                      onClick={() => handleModalClick(eachPokemon?.name)}
+                    >
+                      {eachPokemon?.name}
+                    </a>
+                  }
                   hoverable
                   cover={<img alt="pokemon-image" src={eachPokemon?.image} />}
                 >
@@ -184,16 +193,22 @@ export const HomePage = () => {
                 </StyledCard>
               </Col>
               {index !== evolutions?.length - 1 && <Col span={2}> {"=>"} </Col>}
-            </>
+            </React.Fragment>
           ))}
         </Row>
       </Modal>
-      <Row justify="center" gutter={[0, 24]}>
-        <Col span={24}>
+      <Row justify="center" align="middle" gutter={[16, 24]}>
+        <Col flex="auto">
           <InputText
             onChange={handleSearchText}
             placeholder="Find your pokemon here..."
+            value={searchText}
           />
+        </Col>
+        <Col>
+          <Button danger={true} onClick={() => setSearchText("")} size="large">
+            Clear
+          </Button>
         </Col>
       </Row>
       <Row>
@@ -206,7 +221,14 @@ export const HomePage = () => {
           pokemonFiltered?.map((eachPokemon) => (
             <Col span={8} key={eachPokemon?.id}>
               <StyledCard
-                title={eachPokemon?.name}
+                title={
+                  <a
+                    type="link"
+                    onClick={() => setSearchText(eachPokemon?.name)}
+                  >
+                    {eachPokemon?.name}
+                  </a>
+                }
                 hoverable
                 cover={<img alt="pokemon-image" src={eachPokemon?.image} />}
               >
